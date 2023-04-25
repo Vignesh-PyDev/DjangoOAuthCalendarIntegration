@@ -11,7 +11,8 @@ import datetime
 
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-CLIENT_SECRETS_FILE = "/home/vigneshwarann/Pictures/GoogleCalendarIntegration/googlecalendarintegrationtask/integrationapp/credentials.json"
+
+CLIENT_SECRETS_FILE = os.getcwd() + "/integrationapp/credentials.json"
 
 #Scope is a mechanism in OAuth 2.0 to limit an application's access to a user's account.
 SCOPES = ['https://www.googleapis.com/auth/calendar',
@@ -26,9 +27,7 @@ SCOPES = ['https://www.googleapis.com/auth/calendar',
 REDIRECT_URL = 'http://127.0.0.1:8000/app/v1/calendar/redirect'
 # API_SERVICE_NAME,It tells what service that we are going to use,in this case we are using calendar.
 API_SERVICE_NAME = 'calendar'
-
 API_VERSION = 'v3'
-
 
 @api_view(['GET'])
 def GoogleCalendarInitView(request):
@@ -52,9 +51,9 @@ def GoogleCalendarInitView(request):
 
     return Response({"authorization_url": authorization_url})
 
-
 @api_view(['GET'])
 def GoogleCalendarRedirectView(request):
+
     # Specify the state when creating the flow in the callback so that it can
     # verified in the authorization server response.
     state = request.session['state']
@@ -66,7 +65,6 @@ def GoogleCalendarRedirectView(request):
     # Use the authorization server's response to fetch the OAuth 2.0 tokens.
     authorization_response = request.get_full_path()
     flow.fetch_token(authorization_response=authorization_response)
-
 
     # Save credentials back to session in case access token was refreshed.
     # ACTION ITEM: In a production app, you likely want to save these
@@ -111,7 +109,7 @@ def GoogleCalendarRedirectView(request):
         #     return Response({"events": events_list_append})
         # return Response({"error": "calendar event aren't here"})
         for events_list in events['items']:
-            print(events_list['summary'])
+
             events_dict["Owner"] = events_list['creator']
             events_list["Event Type"] = events_list['kind']
             events_dict["Event Description"] = events_list["summary"]
