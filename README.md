@@ -4,8 +4,9 @@
 
 I have created two API end points,
 
-/app/v1/calendar/init/
-/app/v1/calendar/redirect/
+##/app/v1/calendar/init/
+
+##/app/v1/calendar/redirect/
 
 ## Describe your project
 
@@ -29,6 +30,6 @@ Then go to credentials-->Create Credentials-->OAuth client ID.
   then save.
 Now our created credentials is listed in credentials page,then download and rename it as credentials.json(should be placed inside the Project folder.)
 
-Now Google part is done.
+Thats all ,the above code will work.
 
 
